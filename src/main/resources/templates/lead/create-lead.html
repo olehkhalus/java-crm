@@ -1,0 +1,101 @@
+<!--/*
+    lead        - com.inventorsoft.crm.javacrm.lead.dto.LeadDTO
+    leadStatuses  - com.inventorsoft.crm.javasrm.domain.dictionary.LeadStatus
+*/-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Contact</title>
+    <style>
+        .form-box{
+        padding-top: 20px;
+        padding-bottom: 10px;
+        height: 450px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        }
+
+        ::-webkit-scrollbar {
+        width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <div class="form-container">
+        <form id="form" class="form" th:action="@{/private-api/leads}" th:object="${lead}" th:method="POST">
+            <fieldset>
+                <legend>Create Contact</legend>
+                <div class="form-box">
+                    <div class="form-group">
+                        <input th:field="*{firstName}" class="form-control" id="firstName" placeholder="First name">
+                        <p class="alert-warning" th:each="error: ${#fields.errors('firstName')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="form-group">
+                        <input th:field="*{lastName}" class="form-control" id="lastName" placeholder="Last name">
+                        <p class="alert-warning" th:each="error: ${#fields.errors('lastName')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="form-group">
+                        <input th:field="*{email}" class="form-control" id="email" placeholder="Email">
+                        <p class="alert-warning" th:each="error: ${#fields.errors('email')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="form-group">
+                        <input th:field="*{companyName}" class="form-control" id="companyName" placeholder="Company Name">
+                        <p class="alert-warning" th:each="error: ${#fields.errors('companyName')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="form-group">
+                        <input th:field="*{companySize}" class="form-control" placeholder="Company Size">
+                        <p class="alert-warning" th:each="error: ${#fields.errors('companySize')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="form-group">
+                        <input th:field="*{website}" class="form-control" id="website" placeholder="Website">
+                        <p class="alert-warning" th:each="error: ${#fields.errors('website')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" th:field="*{status}" id="status" name="status" placeholder="Status">
+                            <option th:each="status : ${leadStatuses}"
+                                    th:value="${status}" th:text="${status.label}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input th:field="*{country}" class="form-control" id="country" placeholder="Country">
+                        <p class="alert-warning" th:each="error: ${#fields.errors('country')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="form-group">
+                        <input th:field="*{industry}" class="form-control" id="industry" placeholder="Industry">
+                        <p class="alert-warning" th:each="error: ${#fields.errors('industry')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="form-group">
+                        <textarea th:field="*{note}" class="form-control" id="note" rows="3" placeholder="Note"></textarea>
+                        <p class="alert-warning" th:each="error: ${#fields.errors('note')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+                </div>
+                    <button type="submit" class="btn btn-primary">Create</button>
+            </fieldset>
+        </form>
+    </div>
+</div>
+</body>
+</html>

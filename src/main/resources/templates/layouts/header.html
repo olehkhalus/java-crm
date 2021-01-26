@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--/* Custom styles for this template */-->
+</head>
+<body>
+<header th:fragment="header">
+    <div class="container">
+        <div>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <a class="navbar-brand" href="#">Java CRM</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/private-api/dashboard">Home <span
+                                    class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/private-api/leads">Contacts</a>
+                        </li>
+                    </ul>
+                    <ul class="nav pull-right">
+                        <li class="nav-item dropdown">
+                            <a sec:authorize="isAuthenticated()" class="nav-link dropdown-toggle" href="#"
+                               id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                               aria-expanded="false">
+                                <span style="color: white; padding-right: 10px;"
+                                      th:text="${@profileWebService.getName(#authentication.getPrincipal())}"></span>
+                                <img th:src="${@profileWebService.getUserAvatar(#authentication.getPrincipal())}"
+                                     width="50px"
+                                     alt="No avatar"
+                                     class="rounded-circle"
+                                     onerror="this.style.display='none'">
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" th:href="@{/private-api/userProfile}">Profile</a>
+                                <a class="dropdown-item" th:href="@{/auth/logout}">Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+        </div>
+    </div>
+</header>
+</body>
+</html>

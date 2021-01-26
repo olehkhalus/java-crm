@@ -1,0 +1,13 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 162323945573-vh85thpe9kl94h5vhedh8qio9trv0f57.apps.googleusercontent.com
+            clientSecret: HA2lKg-Ztz9QrhcnchdEjvdl
+            scope: openid,email,profile
+  datasource:
+    password: inventorsoft
+    username: postgres
+    url: jdbc:postgresql://localhost:5432/javacrm

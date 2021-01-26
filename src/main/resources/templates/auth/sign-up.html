@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout.html}">
+<head>
+    <title>SignUp page</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <div class="form-container">
+        <form th:action="@{/public-api/auth/sign-up}" th:object="${user}" method="post">
+            <h2>Create your account</h2>
+            <div class="form-group">
+                <label class="float-left" for="firstName">First name:</label>
+                <input class="form-control" id="firstName" placeholder="ex Darth" th:field="*{firstName}">
+                <p class="alert-warning" th:each="error: ${#fields.errors('firstName')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+            <div class="form-group">
+                <label class="float-left" for="lastName">Last name:</label>
+                <input class="form-control" id="lastName" placeholder="ex Vader" th:field="*{lastName}">
+                <p class="alert-warning" th:each="error : ${#fields.errors('lastName')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+            <div class="form-group">
+                <label class="float-left" for="email">Email address:</label>
+                <input type="email" class="form-control" id="email" placeholder="example@mail.com" th:field="*{email}">
+                <p class="alert-warning" th:each="error : ${#fields.errors('email')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+            <div class="form-group">
+                <label class="float-left" for="companyName">Company name:</label>
+                <input class="form-control" id="companyName" placeholder="ex Alphabet Inc" th:field="*{companyName}">
+                <p class="alert-warning" th:each="error : ${#fields.errors('companyName')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+            <div class="form-group">
+                <label class="float-left" for="password">Password:</label>
+                <input type="password" class="form-control" id="password" placeholder="there should be dots" th:field="*{password}">
+                <p class="alert-warning" th:each="error : ${#fields.errors('password')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+            <div class="input-group-btn">
+                <button type="submit" class="btn btn-lg btn-primary btn-block">Register</button>
+            </div>
+            <div class="p-3">
+                <a href="/public-api/auth/login">Already have an account? Log In</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+

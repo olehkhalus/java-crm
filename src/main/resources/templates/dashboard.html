@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layouts/layout.html}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <script src="https://www.gstatic.com/charts/loader.js"
+            type="text/javascript"></script>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <h2 class="p-3">Leads Line Chart</h2>
+    <div id="linechart_div" style="max-width: 90%; margin: auto;"></div>
+    <br>
+    <form class="form-container" id="form-days">
+        <div class="form-group">
+            <select class="form-control" id="select-days" name="days">
+                 <option disabled selected th:text="'Choose days to count leads'"></option>
+                <option th:each="daysOpt : ${days}" th:value="${daysOpt}" th:text="${daysOpt.getDays()}"></option>
+            </select>
+        </div>
+    </form>
+
+    <script th:inline="javascript">
+
+        $(document).ready(function () {
+            google.charts.load('current', {'packages': ['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+            $("#select-days").change(function () {
+                $("#form-days").submit();
+            })
+        });
+
+        function drawChart() {
+
+            let leads_array = [];
+
+            for (let i of [[${leadsLineChart}]]) {
+                leads_array.push([i.date, i.leadsQuantity]);
+            }
+
+            let data = new google.visualization.DataTable();
+            data.addColumn('string', 'Date');
+            data.addColumn('number', 'Leads');
+            data.addRows(leads_array);
+
+            let options = {
+                theme: 'material',
+                textStyle: {fontSize: 10},
+                legend: {position: 'bottom'}
+            };
+
+            let chart = new google.visualization.LineChart(document.getElementById('linechart_div'));
+
+            chart.draw(data, options);
+        }
+    </script>
+
+</div>
+</body>
+</html>
